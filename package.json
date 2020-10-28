@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/MuhammadAamir21/curd-express-mongo/issues"
   },
-  "homepage": "https://github.com/MuhammadAamir21/curd-express-mongo#readme"
+  "homepage": "https://github.com/MuhammadAamir21/curd-express-mongo#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
