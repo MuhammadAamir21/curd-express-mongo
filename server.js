@@ -5,19 +5,57 @@ const app = express();
 
 const MongoClient = require('mongodb').MongoClient
 
-const url = 'mongodb://127.0.0.1:27017'
+//const url = 'mongodb://127.0.0.1:27017'
 
-const dbName = 'star-wars-quotes'
-let db
 
-MongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
-  if (err) return console.log(err)
+//const dbName = 'star-wars-quotes'
+//let db
+
+//MongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+//  if (err) return console.log(err)
 
   // Storing a reference to the database so you can use it later
-  db = client.db(dbName)
-  console.log(`Connected MongoDB: ${url}`)
-  console.log(`Database: ${dbName}`)
+//  db = client.db(dbName)
+//  console.log(`Connected MongoDB: ${url}`)
+//  console.log(`Database: ${dbName}`)
+//})
+
+const connectionString = 'mongodb://127.0.0.1:27017'
+
+MongoClient.connect(connectionString, { useUnifiedTopology: true
 })
+.then(client => {
+
+console.log('Connected to Database')
+const db = client.db('star-wars-quotes')
+const quotesCollection = db.collection('quotes')
+
+app.post('/quotes', (req, res) => {
+    quotesCollection.insertOne(req.body)
+    .then(result => {
+    res.redirect('/')
+    //console.log(result)
+    })
+    .catch(error => console.error(error))
+})
+
+app.get('/get', (req, res) => {
+    db.collection('quotes').find().toArray()
+    .then(results => {
+        return res.send(results)
+    })
+    .catch(error => console.error(error))
+
+})
+
+//app.use(/* ... */)
+//app.get(/* ... */)
+//app.post(/* ... */)
+//app.listen(/* ... */)
+
+})
+.catch(console.error)
+
 
 //The urlencoded method within body-parser tells body-parser to extract
 //data from the <form> element and add them to the body property
@@ -55,7 +93,7 @@ app.get('/', (req, res) => {
     //for this app.
 })
 
-app.post('/quotes', (req, res) => {
-    console.log('Hellooooooooooooooooo!')
-    console.log(req.body)
-})
+//app.post('/quotes', (req, res) => {
+//    console.log('Hellooooooooooooooooo!')
+//    console.log(req.body)
+//})
