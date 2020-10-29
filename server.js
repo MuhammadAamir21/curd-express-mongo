@@ -1,5 +1,15 @@
 const express = require('express');
+const bodyParser= require('body-parser')
 const app = express();
+
+//The urlencoded method within body-parser tells body-parser to extract
+//data from the <form> element and add them to the body property
+//in the request object.
+
+//Express doesn’t handle reading data from the <form>
+//element on it’s own. We have to add another package called body-parser
+//to gain this functionality.
+app.use(bodyParser.urlencoded({ extended: true }))
 
 // server.js
 console.log('May Node be with you')
@@ -30,4 +40,5 @@ app.get('/', (req, res) => {
 
 app.post('/quotes', (req, res) => {
     console.log('Hellooooooooooooooooo!')
+    console.log(req.body)
 })
