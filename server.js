@@ -27,3 +27,7 @@ app.get('/', (req, res) => {
     // Mine was '/Users/zellwk/Projects/demo-repos/crud-expressmongo'
     //for this app.
 })
+
+app.post('/quotes', (req, res) => {
+    console.log('Hellooooooooooooooooo!')
+})
